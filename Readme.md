@@ -7,9 +7,9 @@ Vamos implementar as funcionalidades de leitura, alteração e exclusão de tare
 Passos:
 
 1. CORE - Crie uma interface IRepository e defina as assinaturas dos métodos de acesso.
-2. INFRA -> Crie um repositório e implemente os métodos de acesso.
-3. CORE -> Crie o fluxo de processo com Request, Response, Specification e Handler para manipular os dados.
-4. API -> Injete o repositório e defina os endpoints com as rotas do Handler.
+2. INFRA - Crie um repositório e implemente os métodos de acesso.
+3. CORE - Crie o fluxo de processo com Request, Response, Specification e Handler para manipular os dados.
+4. API - Injete o repositório e defina os endpoints com as rotas do Handler.
 
 ## CORE - RETRIEVE
 
