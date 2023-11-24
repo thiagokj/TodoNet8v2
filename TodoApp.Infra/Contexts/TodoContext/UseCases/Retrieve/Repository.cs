@@ -9,13 +9,13 @@ public class Repository(AppDbContext context) : IRepository
 {
     private readonly AppDbContext _context = context;
 
-    public async Task<Todo?> GetTodoById(Guid id) =>
+    public async Task<Todo?> GetById(Guid id) =>
         await _context
             .Todos
             .AsNoTracking()
             .FirstOrDefaultAsync(x => x.Id == id);
 
-    public async Task<List<Todo>> GetTodosAsync(Guid? id = null)
+    public async Task<List<Todo>> GetAllAsync(Guid? id = null)
     {
         IQueryable<Todo> query = _context.Todos.AsNoTracking();
 

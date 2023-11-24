@@ -1,4 +1,5 @@
-﻿using TodoApp.Core.Contexts.SharedContext.Entities;
+﻿using System.Data;
+using TodoApp.Core.Contexts.SharedContext.Entities;
 
 namespace TodoApp.Core.Contexts.TodoContext.Entities;
 public class Todo : Entity
@@ -13,6 +14,6 @@ public class Todo : Entity
         IsComplete = isComplete;
     }
 
-    public string Title { get; private set; } = string.Empty;
-    public bool IsComplete { get; private set; } = false;
+    public string Title { get; set; } = string.Empty;
+    public bool IsComplete { get; set; } = false;
 }

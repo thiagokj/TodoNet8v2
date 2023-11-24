@@ -20,6 +20,22 @@ public static class TodoContextExtension
             TodoApp.Infra.Contexts.TodoContext.UseCases.Retrieve.Repository>();
 
         #endregion
+
+        #region Update
+
+        builder.Services.AddTransient<
+            TodoApp.Core.Contexts.TodoContext.UseCases.Update.Contracts.IRepository,
+            TodoApp.Infra.Contexts.TodoContext.UseCases.Update.Repository>();
+
+        #endregion
+
+        #region Delete
+
+        builder.Services.AddTransient<
+            TodoApp.Core.Contexts.TodoContext.UseCases.Delete.Contracts.IRepository,
+            TodoApp.Infra.Contexts.TodoContext.UseCases.Delete.Repository>();
+
+        #endregion
     }
 
     public static void MapTodoEndpoints(this WebApplication app)
@@ -57,6 +73,40 @@ public static class TodoContextExtension
                 : Results.Json(result, statusCode: result.Status);
         });
 
-        #endregion        
+        #endregion
+
+        #region Update
+
+        app.MapPut("api/v1/todos", async (
+            TodoApp.Core.Contexts.TodoContext.UseCases.Update.Request request,
+            IRequestHandler<
+                TodoApp.Core.Contexts.TodoContext.UseCases.Update.Request,
+                TodoApp.Core.Contexts.TodoContext.UseCases.Update.Response> handler) =>
+        {
+            var result = await handler.Handle(request, new CancellationToken());
+            return result.IsSuccess
+              ? Results.Ok(result)
+              : Results.Json(result, statusCode: result.Status);
+        });
+
+        #endregion
+
+        #region Delete
+
+        app.MapDelete("api/v1/todos/{id}", async (
+            Guid id,
+            IRequestHandler<
+                TodoApp.Core.Contexts.TodoContext.UseCases.Delete.Request,
+                TodoApp.Core.Contexts.TodoContext.UseCases.Delete.Response> handler) =>
+        {
+            var request = new TodoApp.Core.Contexts.TodoContext.UseCases.Delete.Request(id);
+            var result = await handler.Handle(request, new CancellationToken());
+            return result.IsSuccess
+                ? Results.NoContent()
+                : Results.Json(result, statusCode: result.Status);
+        });
+
+        #endregion
+
     }
 }

@@ -7,7 +7,6 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <Folder Include="Contexts\SharedContext\UseCases\Create\" />
     <Folder Include="Contexts\TodoContext\UseCases\Create\Contracts\" />
   </ItemGroup>
 
