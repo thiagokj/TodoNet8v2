@@ -19,13 +19,14 @@ Passos:
 
 ```csharp
 // Primeiro crie a interface para definir os métodos de consulta aos dados no repositório externo
+using TodoApp.Core.Contexts.TodoContext.Entities;
+
 namespace TodoApp.Core.Contexts.TodoContext.UseCases.Retrieve.Contracts;
+
 public interface IRepository
 {
-    // Retorna a tarefa conforme o ID informado
-    Task<Todo?> GetById(Guid id);
+    Task<Todo?> GetByIdAsync(Guid id);
 
-    // Retorna todas as tarefas, com a flexibilidade de filtrar ou não por Id
     Task<List<Todo>> GetAllAsync(Guid? id = null);
 }
 ```
@@ -46,7 +47,7 @@ public class Repository(AppDbContext context) : IRepository
 {
     private readonly AppDbContext _context = context;
 
-    public async Task<Todo?> GetById(Guid id) =>
+    public async Task<Todo?> GetByIdAsync(Guid id) =>
         await _context
             .Todos
             .AsNoTracking()
@@ -144,7 +145,7 @@ public class Handler : IRequestHandler<Request, Response>
         Todo? todo;
         try
         {
-            todo = await _repository.GetById(request.Id);
+            todo = await _repository.GetByIdAsync(request.Id);
             if (todo is null)
                 return new Response("Tarefa não encontrada", 404);
         }

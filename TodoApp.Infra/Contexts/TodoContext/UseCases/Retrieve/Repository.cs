@@ -9,7 +9,7 @@ public class Repository(AppDbContext context) : IRepository
 {
     private readonly AppDbContext _context = context;
 
-    public async Task<Todo?> GetById(Guid id) =>
+    public async Task<Todo?> GetByIdAsync(Guid id) =>
         await _context
             .Todos
             .AsNoTracking()

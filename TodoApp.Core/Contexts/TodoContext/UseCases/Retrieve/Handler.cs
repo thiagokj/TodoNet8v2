@@ -16,7 +16,7 @@ public class Handler : IRequestHandler<Request, Response>
         {
             if (request.Id != Guid.Empty)
             {
-                var todo = await _repository.GetById(request.Id);
+                var todo = await _repository.GetByIdAsync(request.Id);
                 if (todo == null)
                     return new Response("Tarefa não encontrada", 404);
 
